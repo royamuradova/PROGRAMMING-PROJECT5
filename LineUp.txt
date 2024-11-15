@@ -5,12 +5,8 @@
 using namespace std;
 
 int main() {
-    cout << "test" << endl; // Added line to print 'test'
-
     // Open the file to read student names
     ifstream inputFile("LineUp.txt");
-
-    cout << "Attempting to open LineUp.txt" << endl; // Debugging output
 
     // Check if the file opened successfully
     if (!inputFile) {

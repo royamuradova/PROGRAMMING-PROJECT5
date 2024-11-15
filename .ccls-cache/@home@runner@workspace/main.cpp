@@ -1,36 +1,37 @@
 #include <iostream>
+#include <cstdlib>  // For rand() and srand()
+#include <ctime>    // For time()
 using namespace std;
 
 int main() {
-    int startPopulation;    // Variable to store the starting population size
-    double dailyIncrease;   // Variable to store the average daily population increase as a percentage
-    int days;               // Variable to store the number of days the population will multiply
+    // Seed the random number generator
+    srand(static_cast<unsigned int>(time(0)));
 
-    // Input validation for starting population
+    // Generate a random number between 1 and 100
+    int randomNumber = rand() % 100 + 1;
+    int userGuess;
+    int guessCount = 0;
+
+    cout << "Welcome to the Random Number Guessing Game!" << endl;
+    cout << "I have chosen a number between 1 and 100. Try to guess it!" << endl;
+
+    // Loop until the user guesses the correct number
     do {
-        cout << "Enter the starting number of organisms (must be at least 2): ";
-        cin >> startPopulation;
-    } while (startPopulation < 2);  // Ensures the starting population is at least 2
+        cout << "Enter your guess: ";
+        cin >> userGuess;
+        guessCount++;  // Increment guess count
 
-    // Input validation for daily increase percentage
-    do {
-        cout << "Enter the average daily population increase (as a percentage, must be positive): ";
-        cin >> dailyIncrease;
-    } while (dailyIncrease < 0);  // Ensures the daily increase percentage is non-negative
+        // Check if the guess is too high, too low, or correct
+        if (userGuess > randomNumber) {
+            cout << "Too high, try again." << endl;
+        } else if (userGuess < randomNumber) {
+            cout << "Too low, try again." << endl;
+        } else {
+            cout << "Congratulations! You've guessed the number!" << endl;
+            cout << "It took you " << guessCount << " guesses." << endl;
+        }
 
-    // Input validation for number of days
-    do {
-        cout << "Enter the number of days they will multiply (must be at least 1): ";
-        cin >> days;
-    } while (days < 1);  // Ensures the number of days is at least 1
+    } while (userGuess != randomNumber);
 
-    // Display the population size for each day
-    cout << "Day 1: " << startPopulation << endl;  // Initial population on Day 1
-    for (int i = 2; i <= days; i++) {  // Loop starts from Day 2 to the specified number of days
-        // Calculate new population by increasing it by the specified daily percentage
-        startPopulation += startPopulation * (dailyIncrease / 100.0);
-        cout << "Day " << i << ": " << startPopulation << endl;  // Display population for each day
-    }
-
-    return 0;  // Program ends
+    return 0;
 }

@@ -1,27 +1,37 @@
 #include <iostream>
+#include <cstdlib>  // For rand() and srand()
+#include <ctime>    // For time()
 using namespace std;
 
 int main() {
-    // Display Pattern A
-    cout << "Pattern A" << endl;
-    for (int i = 1; i <= 10; i++) { // Outer loop for each row
-        for (int j = 1; j <= i; j++) { // Inner loop to print '+' symbols
-            cout << "+";
-        }
-        cout << endl; // Move to the next line after each row
-    }
+    // Seed the random number generator
+    srand(static_cast<unsigned int>(time(0)));
 
-    // Display a separator line for clarity
-    cout << endl;
+    // Generate a random number between 1 and 100
+    int randomNumber = rand() % 100 + 1;
+    int userGuess;
+    int guessCount = 0;
 
-    // Display Pattern B
-    cout << "Pattern B" << endl;
-    for (int i = 10; i >= 1; i--) { // Outer loop for each row
-        for (int j = 1; j <= i; j++) { // Inner loop to print '+' symbols
-            cout << "+";
+    cout << "Welcome to the Random Number Guessing Game!" << endl;
+    cout << "I have chosen a number between 1 and 100. Try to guess it!" << endl;
+
+    // Loop until the user guesses the correct number
+    do {
+        cout << "Enter your guess: ";
+        cin >> userGuess;
+        guessCount++;  // Increment guess count
+
+        // Check if the guess is too high, too low, or correct
+        if (userGuess > randomNumber) {
+            cout << "Too high, try again." << endl;
+        } else if (userGuess < randomNumber) {
+            cout << "Too low, try again." << endl;
+        } else {
+            cout << "Congratulations! You've guessed the number!" << endl;
+            cout << "It took you " << guessCount << " guesses." << endl;
         }
-        cout << endl; // Move to the next line after each row
-    }
+
+    } while (userGuess != randomNumber);
 
     return 0;
 }
